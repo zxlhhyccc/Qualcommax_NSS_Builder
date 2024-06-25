@@ -56,7 +56,7 @@ jobs:
             python3-setuptools rsync swig unzip zlib1g-dev file wget
           sudo apt full-upgrade -y
       - name: Checkout remote repository
-        uses: actions/checkout@latest
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.REMOTE_REPOSITORY }}
           ref: ${{ env.REMOTE_BRANCH }}
@@ -65,7 +65,7 @@ jobs:
           sed -i 's|src-git nss_packages https://github.com/qosmio/nss-packages.git;NSS-12.5-K6.x|src-git nss_packages https://github.com/qosmio/nss-packages.git;NSS-12.5-K6.x-NAPI|' feeds.conf.default
           cat feeds.conf.default
       - name: Checkout current repository
-        uses: actions/checkout@latest
+        uses: actions/checkout@v4
         with:
           path: "custom_repo"
       - name: Update and install feeds
@@ -90,7 +90,7 @@ jobs:
       - name: Package output
         run: tar -cvf ipq807xx-images.tar bin/targets/qualcommax/ipq807x
       - name: Upload artifacts
-        uses: actions/upload-artifact@latest
+        uses: actions/upload-artifact@v4
         with:
           name: ipq807x-images
           path: ipq807xx-images.tar
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@latest
+        uses: actions/download-artifact@v4
         with:
           name: ipq807x-images
       - name: Extract artifacts
@@ -110,7 +110,7 @@ jobs:
       - name: Get current date
         run: echo "RELEASE_DATE=$(date +%F)" >> $GITHUB_ENV
       - name: Create release
-        uses: softprops/action-gh-release@latest
+        uses: softprops/action-gh-release@master
         with:
           files: bin/targets/qualcommax/ipq807x/*
           tag_name: ${{ env.RELEASE_PREFIX }}-${{ env.RELEASE_DATE }}
@@ -120,7 +120,7 @@ jobs:
             Build Commit: ${{ needs.check_commits.outputs.latest_commit_sha }}
             NSS Packages Commit: ${{ needs.check_commits.outputs.nss_packages_repo_latest_commit_sha }}
       - name: Clean up old releases
-        uses: dev-drprasad/delete-older-releases@latest
+        uses: dev-drprasad/delete-older-releases@master
         with:
           keep_latest: 2
           delete_tags: true
