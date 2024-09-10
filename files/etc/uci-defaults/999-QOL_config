@@ -57,6 +57,7 @@ set banip.global.ban_splitsize='1024'
 set banip.global.ban_blockinput='cinsscore' 'debl' 'turris'
 set banip.global.ban_blockforwardwan='cinsscore' 'debl' 'turris'
 set banip.global.ban_blockforwardlan='doh'
+set banip.global.ban_countries='BY','CD','CF','CU','ET','HK','IQ','IR','KP','LB','LY','MM','RU','SD','SY','VE','YE','ZW'
 
 # Disable IPv6
 set network.lan.ipv6='0'
